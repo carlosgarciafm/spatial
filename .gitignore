@@ -30,3 +30,9 @@
 
 # Debug files
 *.dSYM/
+
+# Test images
+*.bmp
+
+# Test data I/O
+*.data
