@@ -87,4 +87,75 @@ GS* getBMP(char* name) {
 	return INPUT;
 }
 
+void putBMP(char* name, GS* INPUT) {
+	FILE* file;
+	int i, j, temp, offset, W, ZERO = 0;
+
+	/* Create new file */
+	if((file = fopen(name, "w+b")) == NULL) {
+		printf("Couldn't open the file.\n");
+		exit(1);
+	}
+
+	/* For convenction, the width must be divisible by 4; check if the condition is met. */
+	offset = INPUT->width % 4;
+	W = (offset)? (INPUT->width + (4 - offset)): (INPUT->width);
+
+	/* Check the header. */
+	if(INPUT->head) {
+		INPUT->size = (W * INPUT->height);
+		fwrite(INPUT->head, 1078, 1, file);
+	}
+
+	/* Generate header. */
+	else {
+		fputc('B', file);
+		fputc('M', file);
+		temp = W * INPUT->height + 1078;
+		fwrite(&temp, 4, 1, file);
+		fwrite(&ZERO, 4, 1, file);
+		temp = 1078;
+		fwrite(&temp, 4, 1, file);
+		temp = 40;
+		fwrite(&temp, 4, 1, file);
+		temp = INPUT->width;
+		fwrite(&temp, 4, 1, file);
+		temp = INPUT->height;
+		fwrite(&temp, 4, 1, file);
+		temp = 1;
+		fwrite(&temp, 2, 1, file);
+		temp = 8;
+		fwrite(&temp, 2, 1, file);
+		temp = 0;
+		fwrite(&temp, 4, 1, file);
+		temp = (W * INPUT->height);
+		fwrite(&temp, 4, 1, file);
+		temp = 0;
+		fwrite(&temp, 4, 1, file);
+		fwrite(&temp, 4, 1, file);
+		temp = 256;
+		fwrite(&temp, 4, 1, file);
+		temp = 0;
+		fwrite(&temp, 4, 1, file);
+
+		/* Write palette. */
+		for(temp = 0; temp < 256; temp++) {
+			for(i = 0; i < 3; i++)
+				fwrite(&temp, 1, 1, file);
+			fwrite(&ZERO, 1, 1, file);
+		}
+	}
+
+	/* Write bitmap. */
+	for(i = 0; i < INPUT->height; i++)
+		for(j = 0; j < W; j++) {
+			if(j > (INPUT->width - 1))
+				fputc(0, file);
+			else
+				fputc(((BYTE)INPUT->pixel[i * INPUT->width + j]), file);
+		}
+
+	fclose(file);
+}
+
 #endif
