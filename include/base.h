@@ -24,13 +24,13 @@ GS* getBMP(char* name) {
 	FILE* file;
 	int i, j, w, W;
 
-	// Open the input file
+	/* Open the input file */
 	if((file = fopen(name, "rb")) == NULL) {
 		printf("Couldn't open given file.\n");
 		exit(1);
 	}
 
-	// Allocate memory for the structure GS
+	/* Allocate memory for the structure GS */
 	if((INPUT = (GS*)malloc(sizeof(GS))) == NULL) {
 		printf("Couldn't allocate memory for GS.\n");
 		exit(1);
@@ -48,29 +48,29 @@ GS* getBMP(char* name) {
 	fseek(file, 34, SEEK_SET);
 	fread(&INPUT->size, 4, 1, file);
 
-	// Corroborate valid file
+	/* Corroborate valid file */
 	if((INPUT->id[0] != 'B') || (INPUT->id[1] != 'M')) {
 		printf("Invalid format type.\n");
 		exit(1);
 	}
 
-	// Allocate memory for the header
+	/* Allocate memory for the header */
 	if((INPUT->head = (BYTE*)malloc(INPUT->offset)) == NULL) {
 		printf("Couldn't allocate memory for the header.\n");
 		exit(1);
 	}
 
-	// Allocate memory for the image
+	/* Allocate memory for the image */
 	if((INPUT->pixel = (float*)calloc(INPUT->width * INPUT->height, sizeof(float))) == NULL) {
 		printf("Couldn't allocate memory for the image.\n");
 		exit(1);
 	}
 
-	// Read the header
+	/* Read the header */
 	rewind(file);
 	fread(INPUT->head, 1078, 1, file);
 
-	// Read the image
+	/* Read the image */
 	w = INPUT->width;
 	W = INPUT->size / INPUT->height;
 	fseek(file, INPUT->offset, SEEK_SET);
