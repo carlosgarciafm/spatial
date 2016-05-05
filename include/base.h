@@ -22,7 +22,7 @@ typedef struct {
 GS* getBMP(char* name) {
 	GS* INPUT;
 	FILE* file;
-	int i, j, w, W;
+	int i, j, width, n_width;
 
 	/* Open the input file */
 	if((file = fopen(name, "rb")) == NULL) {
@@ -71,14 +71,14 @@ GS* getBMP(char* name) {
 	fread(INPUT->head, 1078, 1, file);
 
 	/* Read the image */
-	w = INPUT->width;
-	W = INPUT->size / INPUT->height;
+	width = INPUT->width;
+	n_width = INPUT->size / INPUT->height;
 	fseek(file, INPUT->offset, SEEK_SET);
 	for(i = 0; i < INPUT->height; i++) {
 		for(j = 0; j < INPUT->width; j++)
-			INPUT->pixel[i * w + j] = (float)fgetc(file);
-		if(w != W)
-			for(j = 0; j < W - w; j++)
+			INPUT->pixel[i * width + j] = (float)fgetc(file);
+		if(width != n_width)
+			for(j = 0; j < (n_width - width); j++)
 				fgetc(file);
 	}
 
@@ -89,7 +89,7 @@ GS* getBMP(char* name) {
 
 void putBMP(char* name, GS* INPUT) {
 	FILE* file;
-	int i, j, temp, offset, W, ZERO = 0;
+	int i, j, temp, offset, n_width, ZERO = 0;
 
 	/* Create new file */
 	if((file = fopen(name, "w+b")) == NULL) {
@@ -99,11 +99,11 @@ void putBMP(char* name, GS* INPUT) {
 
 	/* For convenction, the width must be divisible by 4; check if the condition is met. */
 	offset = INPUT->width % 4;
-	W = (offset)? (INPUT->width + (4 - offset)): (INPUT->width);
+	n_width = (offset)? (INPUT->width + (4 - offset)): (INPUT->width);
 
 	/* Check the header. */
 	if(INPUT->head) {
-		INPUT->size = (W * INPUT->height);
+		INPUT->size = (n_width * INPUT->height);
 		fwrite(INPUT->head, 1078, 1, file);
 	}
 
@@ -111,7 +111,7 @@ void putBMP(char* name, GS* INPUT) {
 	else {
 		fputc('B', file);
 		fputc('M', file);
-		temp = W * INPUT->height + 1078;
+		temp = n_width * INPUT->height + 1078;
 		fwrite(&temp, 4, 1, file);
 		fwrite(&ZERO, 4, 1, file);
 		temp = 1078;
@@ -128,7 +128,7 @@ void putBMP(char* name, GS* INPUT) {
 		fwrite(&temp, 2, 1, file);
 		temp = 0;
 		fwrite(&temp, 4, 1, file);
-		temp = (W * INPUT->height);
+		temp = (n_width * INPUT->height);
 		fwrite(&temp, 4, 1, file);
 		temp = 0;
 		fwrite(&temp, 4, 1, file);
@@ -148,7 +148,7 @@ void putBMP(char* name, GS* INPUT) {
 
 	/* Write bitmap. */
 	for(i = 0; i < INPUT->height; i++)
-		for(j = 0; j < W; j++) {
+		for(j = 0; j < n_width; j++) {
 			if(j > (INPUT->width - 1))
 				fputc(0, file);
 			else
