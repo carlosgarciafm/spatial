@@ -158,4 +158,30 @@ void putBMP(char* name, GS* INPUT) {
 	fclose(file);
 }
 
+GS* newBMP(unsigned int height, unsigned int width) {
+	GS* INPUT;
+	int ONE = 1;
+
+	/* Allocate memory for the structure. */
+	if((INPUT = (GS*)calloc(ONE, sizeof(GS))) == NULL) {
+		printf("Couldn't allocate memory for the structure GS.\n");
+		exit(1);
+	}
+
+	/* Set the dimensions of the image with the given parameters. */
+	INPUT->width = width;
+	INPUT->height = height;
+	INPUT->size = width * height;
+
+	/* Allocate memory for the image. */
+	if((INPUT->pixel = (float*)calloc(INPUT->size, sizeof(float))) == NULL) {
+		printf("Couldn't allocate memory for the image.\n");
+		exit(1);
+	}
+
+	INPUT->head = NULL;
+
+	return INPUT;
+}
+
 #endif
