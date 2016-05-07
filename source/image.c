@@ -20,3 +20,14 @@ GS* horizontalPattern(unsigned int height, unsigned int width) {
 		INPUT->pixel[n] = ((n / INPUT->width) >= (INPUT->height / 2))? 255: 0;
 	return INPUT;
 }
+
+/* Creates a test image with a grid pattern. */
+GS* gridPattern(unsigned int height, unsigned int width) {
+	int n;
+	GS* INPUT = newBMP(height, width);
+	for(n = 0; n < INPUT->size; n++) {
+	/* cookies: i = n / INPUT->width, j = n % INPUT->width; */
+		INPUT->pixel[n] = ((((n / INPUT->width) % 2) == 0) && (((n % INPUT->width) % 2) != 0))? 255: 0;
+	}
+	return INPUT;
+}
