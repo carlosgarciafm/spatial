@@ -25,4 +25,6 @@ void putBMP(char* name, GS* INPUT);
 
 GS* newBMP(unsigned int height, unsigned int width);
 
+void freeBMP(GS* INPUT);
+
 #endif

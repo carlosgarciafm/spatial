@@ -72,6 +72,7 @@ GS* getBMP(char* name) {
 	return INPUT;
 }
 
+
 /* Writes an image from the execution memory to the disk. */
 void putBMP(char* name, GS* INPUT) {
 	FILE* file;
@@ -170,4 +171,12 @@ GS* newBMP(unsigned int height, unsigned int width) {
 	INPUT->head = NULL;
 
 	return INPUT;
+}
+
+
+/* Free the memory occupied by an image. */
+void freeBMP(GS* INPUT) {
+	free(INPUT->head);
+	free(INPUT->pixel);
+	free(INPUT);
 }
