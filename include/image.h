@@ -5,4 +5,6 @@
 
 GS* verticalPattern(unsigned int height, unsigned int width);
 
+GS* horizontalPattern(unsigned int height, unsigned int width);
+
 #endif
