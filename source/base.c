@@ -1,7 +1,4 @@
 #include "base.h"
-#include <stdio.h>
-#include <stdlib.h>
-
 
 /* Reads an image from a file and keeps it in the execution memory. */
 GS* getBMP(char* name) {
