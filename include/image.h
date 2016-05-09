@@ -9,4 +9,6 @@ GS* horizontalPattern(unsigned int height, unsigned int width);
 
 GS* gridPattern(unsigned int height, unsigned int width);
 
+void negative(GS* INPUT);
+
 #endif

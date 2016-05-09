@@ -31,3 +31,10 @@ GS* gridPattern(unsigned int height, unsigned int width) {
 	}
 	return INPUT;
 }
+
+/* Modifies the value of each pixel setting it to it's complement to 255. */
+void negative(GS* INPUT) {
+	int n;
+	for(n = 0; n < INPUT->size; n++)
+		INPUT->pixel[n] = 255 - INPUT->pixel[n];
+}
