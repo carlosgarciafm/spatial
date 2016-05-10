@@ -32,6 +32,15 @@ GS* gridPattern(unsigned int height, unsigned int width) {
 	return INPUT;
 }
 
+/* Copies an image from execution memory into a new one. */
+GS* copy(GS* INPUT) {
+	GS* OUTPUT = newBMP(INPUT->height, INPUT->width);
+	int n;
+	for(n = 0; n < INPUT->size; n++)
+		OUTPUT->pixel[n] = INPUT->pixel[n];
+	return OUTPUT;
+}
+
 /* Modifies the value of each pixel setting it to it's complement to 255. */
 void negative(GS* INPUT) {
 	int n;
