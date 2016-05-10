@@ -13,4 +13,6 @@ GS* copy(GS* INPUT);
 
 void negative(GS* INPUT);
 
+void binary(GS* INPUT, unsigned int threshold);
+
 #endif

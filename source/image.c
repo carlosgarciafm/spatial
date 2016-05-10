@@ -47,3 +47,10 @@ void negative(GS* INPUT) {
 	for(n = 0; n < INPUT->size; n++)
 		INPUT->pixel[n] = 255 - INPUT->pixel[n];
 }
+
+/* Change the intensity of all the pixels according to the given threshold value. */
+void binary(GS* INPUT, unsigned int threshold) {
+	int n;
+	for(n = 0; n < INPUT->size; n++)
+		INPUT->pixel[n] = (INPUT->pixel[n] < threshold)? 0: 255;
+}
