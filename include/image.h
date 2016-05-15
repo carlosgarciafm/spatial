@@ -11,6 +11,8 @@ GS* gridPattern(unsigned int height, unsigned int width);
 
 GS* copy(GS* INPUT);
 
+GS* extract(const GS* INPUT, unsigned int x, unsigned int y, unsigned int height, unsigned int width);
+
 void negative(GS* INPUT);
 
 void binary(GS* INPUT, unsigned int threshold);

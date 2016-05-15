@@ -41,6 +41,17 @@ GS* copy(GS* INPUT) {
 	return OUTPUT;
 }
 
+/* Extracts a portion of an image (given the initial coordinates and the dimensions of the image) */
+/* and creates a new image with it. */
+GS* extract(const GS* INPUT, unsigned int x, unsigned int y, unsigned int height, unsigned int width) {
+	GS* OUTPUT = newBMP(height, width);
+	int i, j;
+	for(i = 0; i < OUTPUT->height; i++)
+		for(j = 0; j < OUTPUT->width; j++)
+			OUTPUT->pixel[(OUTPUT->height - (i + 1)) * OUTPUT->width + j] = INPUT->pixel[(INPUT->height - (i + x)) * INPUT->width + (y + j)];
+	return OUTPUT;
+}
+
 /* Modifies the value of each pixel setting it to it's complement to 255. */
 void negative(GS* INPUT) {
 	int n;
