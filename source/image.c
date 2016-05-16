@@ -52,6 +52,16 @@ GS* extract(const GS* INPUT, unsigned int x, unsigned int y, unsigned int height
 	return OUTPUT;
 }
 
+/* Paste an image on top of another (given both images and a initial coordinate). */
+GS* replace(GS* INPUT_A, GS* INPUT_B, unsigned int x, unsigned int y) {
+	GS* OUTPUT = copy(INPUT_A);
+	int i, j;
+	for(i = x; i < (INPUT_B->height + x); i++)
+		for(j = y; j < (INPUT_B->width + y); j++)
+			OUTPUT->pixel[(OUTPUT->height - i) * OUTPUT->width + j] = INPUT_B->pixel[(INPUT_B->height - (i - x)) * INPUT_B->width + (j - y)];
+	return OUTPUT;
+}
+
 /* Modifies the value of each pixel setting it to it's complement to 255. */
 void negative(GS* INPUT) {
 	int n;
