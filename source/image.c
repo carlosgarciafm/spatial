@@ -62,6 +62,26 @@ GS* replace(GS* INPUT_A, GS* INPUT_B, unsigned int x, unsigned int y) {
 	return OUTPUT;
 }
 
+/* Rotates an image by 90 degrees (CCW) and creates a new image in memory with the result. */
+GS* rotate90(const GS* INPUT) {
+	GS* OUTPUT = newBMP(INPUT->width, INPUT->height);
+	int i, j;
+	for(i = 0; i < INPUT->height; i++)
+		for(j = 0; j < INPUT->width; j++)
+			OUTPUT->pixel[((OUTPUT->height - 1) - j) * OUTPUT->width + ((OUTPUT->width - 1) - i)] = INPUT->pixel[i * INPUT->width + j];
+	return OUTPUT;
+}
+
+/* Rotates an image by 90 degrees (CW) and creates a new image in memory with the result. */
+GS* rotate90n(const GS* INPUT) {
+	GS* OUTPUT = newBMP(INPUT->width, INPUT->height);
+	int i, j;
+	for(i = 0; i < INPUT->height; i++)
+		for(j = 0; j < INPUT->width; j++)
+			OUTPUT->pixel[j * OUTPUT->width + i] = INPUT->pixel[i * INPUT->width + j];
+	return OUTPUT;
+}
+
 /* Modifies the value of each pixel setting it to it's complement to 255. */
 void negative(GS* INPUT) {
 	int n;

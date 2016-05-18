@@ -15,6 +15,10 @@ GS* extract(const GS* INPUT, unsigned int x, unsigned int y, unsigned int height
 
 GS* replace(GS* INPUT_A, GS* INPUT_B, unsigned int x, unsigned int y);
 
+GS* rotate90(const GS* INPUT);
+
+GS* rotate90n(const GS* INPUT);
+
 void negative(GS* INPUT);
 
 void binary(GS* INPUT, unsigned int threshold);
