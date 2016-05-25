@@ -1,5 +1,6 @@
 #include "base.h"
 #include "image.h"
+#include <math.h>
 
 /* Creates a test image with a vertical pattern. */
 GS* verticalPattern(unsigned int height, unsigned int width) {
@@ -94,4 +95,14 @@ void binary(GS* INPUT, unsigned int threshold) {
 	int n;
 	for(n = 0; n < INPUT->size; n++)
 		INPUT->pixel[n] = (INPUT->pixel[n] < threshold)? 0: 255;
+}
+
+/* Change the amount of possible intensity values within the image. */
+void posterize(GS *INPUT, unsigned int levels) {
+	int n;
+	for(n = 0; n < INPUT->size; n++) {
+		double intensity = (INPUT->pixel[n] / (double)(255)) * (levels - 1);
+		intensity = round(intensity);
+		INPUT->pixel[n] = (int)(intensity * 255) / (levels - 1);
+	}
 }

@@ -23,4 +23,6 @@ void negative(GS* INPUT);
 
 void binary(GS* INPUT, unsigned int threshold);
 
+void posterize(GS *INPUT, unsigned int levels);
+
 #endif
