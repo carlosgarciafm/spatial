@@ -118,3 +118,9 @@ void maxMin(GS* INPUT, unsigned int* max, unsigned int* min) {
 		else if(INPUT->pixel[n] < (*min))
 			(*min) = INPUT->pixel[n];
 }
+void normalize(GS *INPUT) {
+	int max, min, n;
+	maxMin(INPUT, &max, &min);
+	for(n = 0; n < INPUT->size; n++)
+		INPUT->pixel[n] = ((INPUT->pixel[n] - min) / (max - min)) * 255;
+}
