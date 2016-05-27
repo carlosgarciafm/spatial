@@ -106,3 +106,15 @@ void posterize(GS *INPUT, unsigned int levels) {
 		INPUT->pixel[n] = (int)(intensity * 255) / (levels - 1);
 	}
 }
+
+/* Auxiliar function to find the max and min intensity values of the image. */
+void maxMin(GS* INPUT, unsigned int* max, unsigned int* min) {
+	(*max) = *(INPUT->pixel);
+	(*min) = *(INPUT->pixel);
+	int n;
+	for(n = 0; n < INPUT->size; n++)
+		if(INPUT->pixel[n] > (*max))
+			(*max) = INPUT->pixel[n];
+		else if(INPUT->pixel[n] < (*min))
+			(*min) = INPUT->pixel[n];
+}
