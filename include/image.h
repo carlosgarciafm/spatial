@@ -25,7 +25,7 @@ void binary(GS* INPUT, unsigned int threshold);
 
 void posterize(GS *INPUT, unsigned int levels);
 
-void maxMin(GS* INPUT, unsigned int* max, unsigned int* min);
-void normalize(GS *INPUT);
+void maxMin(GS* INPUT, unsigned int* min, unsigned int* max);
+void normalize(GS *INPUT, unsigned int d_min, unsigned int d_max);
 
 #endif
